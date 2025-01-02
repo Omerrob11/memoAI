@@ -46,6 +46,14 @@ export default {
       secondary: "#00ff00",
       background: "#FFFFFF",
       mainText: "#37352F",
+      error: {
+        50: "#FEF2F2", // Very light red for subtle backgrounds
+        100: "#FEE2E2", // Light red for hover states
+        500: "#EF4444", // Main error color (bright red)
+        600: "#DC2626", // Slightly darker for hover states
+        700: "#B91C1C", // Dark red for text
+      },
+      success: "#22C55E",
     },
     extend: {
       colors: {
