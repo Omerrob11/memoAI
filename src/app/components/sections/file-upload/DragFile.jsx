@@ -131,16 +131,6 @@ const DragFile = () => {
           </>
         )}
 
-        {/* Error message */}
-
-        {/* <h2 className="text-xl md:text-2xl text-black font-semibold mb-2">
-          גרור קבצים לכאן כדי לייצר שאלות חדשות
-        </h2> */}
-
-        {/* <p className="text-gray-800 mb-4 text-xl md:text-xl">או</p> */}
-
-        {/* Error message inside the box */}
-
         <p className="text-gray-400 text-sm mt-4">פורמטים נתמכים: PDF, DOCX</p>
       </div>
     </div>
