@@ -14,3 +14,10 @@ also - this is the most important thing-> DO NOT generate all the code at once.
 we will develop the features feature by feature, line by line, together.
 
 Tell me that you got it and I will continue with the tasks that we need to do.
+
+
+potenially can add:
+- no more than 3 lines of code per message
+
+maybe:
+- 1-5 lines at at ime

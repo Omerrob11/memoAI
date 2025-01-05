@@ -1,4 +1,6 @@
 import { supabase } from "@/servcies/supabase";
+import pdfParse from "pdf-parse";
+import mammoth from "mammoth";
 
 // we export a post function - so this endpoint, which is a path that the client will "go to" when we upload the doc
 // and this endpoint, is a post request, that then we will handle in the server
@@ -46,11 +48,47 @@ export async function POST(req) {
 
     // get the actual file data (blob contating the document)
     const fileData = downloadResponse.data;
+    // split the file at the dot, and takes the last piece of it (pop()), and convert it to lowercase
+    const fileExtension = documentPath.split(".").pop().toLowerCase();
     console.log("Successfully retrieved document, size:", fileData.size);
 
+    // we will support more formats later on
+    if (fileExtension !== "pdf" && fileExtension !== "docx") {
+      throw new Error(
+        "Unsupported file type. Please upload a PDF or DOCX file."
+      );
+    }
+
+    let extractedText;
+    if (fileExtension === "pdf") {
+      // conver the blob to arrayBuffer which pdfParse can read
+      //  arrray buffer is a format that our pdf tool can understand, simmilar to asking a document out of an envelope
+      //   array buffer is a table of data - we transform it to array buffer, very orgnaize way
+      const arrayBuffer = await fileData.arrayBuffer();
+      const pdfData = await pdfParse(arrayBuffer);
+      extractedText = pdfData.text;
+    } else if (fileExtension === "docx") {
+      const arrayBuffer = await fileData.arrayBuffer();
+      const result = mammoth.extractRawText({ arrayBuffer });
+      extractedText = result.value;
+    }
+
+    if (!extractedText) {
+      return Response.json(
+        {
+          error: "failed to extract text from document",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
     return Response.json({
-      message: "Document recieved",
-      size: fileData.size,
+      success: true,
+      message: "text successfully extraxted",
+      preview: extractedText.slice(0, 100),
+      totalLength: extractedText.length,
     });
   } catch (error) {
     console.log("lol this is error baby");
@@ -69,3 +107,6 @@ export async function POST(req) {
 
 // questions:
 // 1. what will be in the request body
+
+// blob: its just the raw data, a sealed box with the raw binary data
+// but the content inside the box is orangaized in different way, depending on the file format - either pdf or docx
