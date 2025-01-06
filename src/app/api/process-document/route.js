@@ -19,11 +19,20 @@ export async function POST(req) {
     const documentPath = requestData.documentPath;
 
     if (!documentPath) {
+      // api call, we must using the Response.json() object
+      // we convert the javascript to json format
+      // setting the appropriate content type header
+
       return Response.json(
+        // we are setnding an http response
+        // first object is the content - the actual body (data) of the response
+        // so we send an object with an error message
         {
           error: "Documenth path is required",
         },
         {
+          // bad requests, invalid requests
+          // this object is the metadata - tells the broswer and server how to handle this response
           status: 400,
         }
       );
@@ -45,6 +54,7 @@ export async function POST(req) {
         {
           error: " failed to download document from storage",
         },
+        // problem on the server side, failed to download - internal server error
         { status: 500 }
       );
     }
@@ -82,7 +92,7 @@ export async function POST(req) {
           error: "failed to extract text from document",
         },
         {
-          status: 400,
+          status: 500,
         }
       );
     }
