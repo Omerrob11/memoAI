@@ -9,7 +9,10 @@ import mammoth from "mammoth";
 // goal of this:
 // get the document from Supabase storage by using the path
 // extract it for processing.
+
+// why post? because we are sending data in the request body, to the server to process it - mainly, the document path.
 export async function POST(req) {
+  // request body - the body you send to the request
   try {
     // get the data from the request body
     const requestData = await req.json();
@@ -84,11 +87,13 @@ export async function POST(req) {
       );
     }
 
+    // this is the actual response that we send back
     return Response.json({
       success: true,
       message: "text successfully extraxted",
       preview: extractedText.slice(0, 100),
       totalLength: extractedText.length,
+      text: extractedText,
     });
   } catch (error) {
     console.log("lol this is error baby");
@@ -104,9 +109,6 @@ export async function POST(req) {
 // we need the file path - getting the documenthPath
 // then we download the document - donlowad gets the file data as BLOB - its a packjge containg the raw data, its not text.
 // we can read the blob as text or binary data
-
-// questions:
-// 1. what will be in the request body
 
 // blob: its just the raw data, a sealed box with the raw binary data
 // but the content inside the box is orangaized in different way, depending on the file format - either pdf or docx
