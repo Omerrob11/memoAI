@@ -1,11 +1,12 @@
 import { uploadDocument } from "./storage";
 import { processDocument } from "./processDocument";
+import { testEnd2 } from "@/servcies/test";
 
 // we are getting the file, and once it dropped in our element, we will call this function
 export async function handleDocumentUploadAndProcess(file) {
   try {
     // upload document to supabase
-    // get either data object or error object
+    // get either data object(path, etc) or error object
     const uploadResult = await uploadDocument(file);
     // if error true, throw an error
     if (uploadResult.error) {
@@ -15,7 +16,7 @@ export async function handleDocumentUploadAndProcess(file) {
     // we get the data object from the upload
     // pass the file path to the process document
     // getting an object
-    const processResult = await processDocument(uploadResult.path);
+    const processResult = await testEnd2(uploadResult.path);
     // return upload result which give us data about the document in supabase
     // process result, contain the extracted text
     return {

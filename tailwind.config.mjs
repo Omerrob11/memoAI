@@ -2,9 +2,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    // "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    // "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,jsx,mdx}", // This catches all JS/JSX files in src
+    "./src/pages/**/*.{js,jsx}",
+    "./src/components/**/*.{js,jsx}",
+    "./src/app/**/*.{js,jsx}",
+    "./src/services/**/*.{js,jsx}", // Include your servlcies directory
   ],
   theme: {
     // colors: {

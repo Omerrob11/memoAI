@@ -1,4 +1,4 @@
 import { supabase } from "./client";
-import { uploadDocument } from "./documents/storage";
+import { handleDocumentUploadAndProcess } from "./documents/handleDocumentsUploadAndProcess";
 
-export { supabase, uploadDocument };
+export { supabase, handleDocumentUploadAndProcess };

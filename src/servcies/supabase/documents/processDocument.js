@@ -3,6 +3,7 @@
 // sending request with document path, and extract the text (api brings us back object)
 // return the object to the calling code
 export async function processDocument(documentPath) {
+  console.log(documentPath);
   if (!documentPath) {
     throw new Error("Document path is required");
   }
@@ -13,7 +14,9 @@ export async function processDocument(documentPath) {
     //   fetch return a response object in json
     // after sucsusfull upload, we process the documenht that we just uploaded.
     // we send in the body the document path
-    const processResponse = await fetch("/api/process-document", {
+    const url = "/api/process-document";
+    console.log("Calling API endpoint:", url);
+    const processResponse = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +30,11 @@ export async function processDocument(documentPath) {
     });
 
     if (!processResponse.ok) {
+      console.log("do we get here in process document");
       const errorData = await processResponse.json();
+      console.log(errorData);
+      console.log(`this + ${errorData}`);
+
       throw new Error(errorData.error || "Failed to process document");
     }
 
@@ -37,6 +44,8 @@ export async function processDocument(documentPath) {
     return processedData;
   } catch (error) {
     // throwing an error, so the calling code will have to chek it
+    console.error("Processing error:", error);
+
     throw new Error(`Document processing failed: ${error.message}`);
   }
 }

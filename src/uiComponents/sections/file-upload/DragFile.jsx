@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { Upload, X } from "lucide-react";
-
+import { handleDocumentUploadAndProcess } from "@/servcies/supabase";
+import { testEnd2 } from "@/servcies/test";
 const DragFile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState("");
@@ -44,6 +45,27 @@ const DragFile = () => {
       setUploadedFile(file);
     }
   }
+
+  const handleButtonClick = async () => {
+    // if (!uploadedFile) return;
+
+    // try {
+    //   const result = await handleDocumentUploadAndProcess(uploadedFile);
+
+    //   if (result.error) {
+    //     setError(result.error.message);
+    //   }
+    //   console.log("Upload and processing successful:", result);
+    // } catch (error) {
+    //   setError(`Failed to process document: ${error.message}`);
+    // }
+    try {
+      const result = await handleDocumentUploadAndProcess(uploadedFile);
+      console.log("Test successful:", result);
+    } catch (error) {
+      console.error("Test failed:", error);
+    }
+  };
   return (
     <div className="w-full max-w-3xl mx-auto p-6">
       <div
@@ -105,7 +127,10 @@ const DragFile = () => {
                 </span>
               </label>
 
-              <button className="bg-success hover:bg-success/80 text-white font-medium rounded-lg px-6 py-2.5 transition-colors duration-200">
+              <button
+                onClick={handleButtonClick}
+                className="bg-success hover:bg-success/80 text-white font-medium rounded-lg px-6 py-2.5 transition-colors duration-200"
+              >
                 צרו שאלות
               </button>
             </div>

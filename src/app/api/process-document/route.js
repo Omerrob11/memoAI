@@ -1,6 +1,7 @@
 import { supabase } from "@/servcies/supabase";
 import pdfParse from "pdf-parse";
 import mammoth from "mammoth";
+import { NextResponse } from "next/server";
 
 // we export a post function - so this endpoint, which is a path that the client will "go to" when we upload the doc
 // and this endpoint, is a post request, that then we will handle in the server
@@ -23,7 +24,7 @@ export async function POST(req) {
       // we convert the javascript to json format
       // setting the appropriate content type header
 
-      return Response.json(
+      return NextResponse.json(
         // we are setnding an http response
         // first object is the content - the actual body (data) of the response
         // so we send an object with an error message
@@ -32,7 +33,7 @@ export async function POST(req) {
         },
         {
           // bad requests, invalid requests
-          // this object is the metadata - tells the broswer and server how to handle this response
+          // this object is the metadata - tells the broswer and no, server how to handle this response
           status: 400,
         }
       );
@@ -50,7 +51,7 @@ export async function POST(req) {
 
     if (downloadResponse.error) {
       console.error("supabase donlwoad error: ", downloadResponse.error);
-      return Response.json(
+      return NextResponse.json(
         {
           error: " failed to download document from storage",
         },
@@ -87,7 +88,7 @@ export async function POST(req) {
     }
 
     if (!extractedText) {
-      return Response.json(
+      return NextResponse.json(
         {
           error: "failed to extract text from document",
         },
@@ -98,7 +99,7 @@ export async function POST(req) {
     }
 
     // this is the actual response that we send back
-    return Response.json({
+    return NextResponse.json({
       success: true,
       message: "text successfully extraxted",
       preview: extractedText.slice(0, 100),
@@ -107,7 +108,7 @@ export async function POST(req) {
     });
   } catch (error) {
     console.log("lol this is error baby");
-    return Response.json(
+    return NextResponse.json(
       { error: "failed to process document" },
       { status: 500 }
     );

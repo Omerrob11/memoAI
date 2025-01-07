@@ -20,14 +20,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
 /* Utility first - preexisting classes directly in our html - no more css */
 
 /* resoinsive design */
-  /* mobile first approach - you will need to change it if you want it for the larger screens */  
-  /* specify when a utility should start taking an effect, not when it should stop */
-  /* design by minimum width - meaning, from that point and up */
-
+/* mobile first approach - you will need to change it if you want it for the larger screens */
+/* specify when a utility should start taking an effect, not when it should stop */
+/* design by minimum width - meaning, from that point and up */
 
 /* hover, focus, & other resources */
 
@@ -39,14 +37,12 @@ body {
 
 /* adding new utilities */
 
-
 /* functions & directions */
 
 /* Theme */
 
-  /* extestends: extending the theme, preserve the deault values but add new values */
-  /* to override - add them directly under your theme - replace default configuration */
-
+/* extestends: extending the theme, preserve the deault values but add new values */
+/* to override - add them directly under your theme - replace default configuration */
 
 /* breakPoints */
 
