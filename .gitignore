@@ -42,5 +42,6 @@ next-env.d.ts
 
 # files specified for learning: need to specifiy the "/" at the end, ignore all
 
-./src/demoFiles/
 ./demoFiles/
+
+./docs/
