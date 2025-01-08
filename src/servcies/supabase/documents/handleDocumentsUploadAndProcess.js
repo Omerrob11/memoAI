@@ -1,6 +1,6 @@
 import { uploadDocument } from "./storage";
 import { processDocument } from "./processDocument";
-import { testEnd2 } from "@/servcies/test";
+import { testEnd2 } from "@/servcies/supabase/documents/test";
 
 // we are getting the file, and once it dropped in our element, we will call this function
 export async function handleDocumentUploadAndProcess(file) {

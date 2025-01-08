@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Upload, X } from "lucide-react";
 import { handleDocumentUploadAndProcess } from "@/servcies/supabase";
-import { testEnd2 } from "@/servcies/test";
+import { testEnd2 } from "@/servcies/supabase/documents/test";
 const DragFile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState("");
