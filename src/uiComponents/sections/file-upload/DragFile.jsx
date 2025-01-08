@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Upload, X } from "lucide-react";
 import { handleDocumentUploadAndProcess } from "@/servcies/supabase";
-import { testEnd2 } from "@/servcies/supabase/documents/test";
 const DragFile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState("");
@@ -46,24 +45,22 @@ const DragFile = () => {
     }
   }
 
-  const handleButtonClick = async () => {
-    // if (!uploadedFile) return;
-
-    // try {
-    //   const result = await handleDocumentUploadAndProcess(uploadedFile);
-
-    //   if (result.error) {
-    //     setError(result.error.message);
-    //   }
-    //   console.log("Upload and processing successful:", result);
-    // } catch (error) {
-    //   setError(`Failed to process document: ${error.message}`);
-    // }
+  const processFile = async () => {
+    if (!uploadedFile) {
+      setError("חייבים להעלות קובץ לפני יצירת שאלות");
+      return;
+    }
     try {
       const result = await handleDocumentUploadAndProcess(uploadedFile);
-      console.log("Test successful:", result);
+      if (result.error) {
+        setError("שגיאה ביצירת שאלות. נא נסה שנית");
+      }
+      console.log(result.uploadResult);
+      console.log(result.extractedText);
+      // we probably don't need that catch clause, because we cought all possible erros
+      // we couch all possible erros in handleDocumentsUPLOAD...
     } catch (error) {
-      console.error("Test failed:", error);
+      setError(`Failed to process document: ${error.message}`);
     }
   };
   return (
@@ -128,7 +125,7 @@ const DragFile = () => {
               </label>
 
               <button
-                onClick={handleButtonClick}
+                onClick={processFile}
                 className="bg-success hover:bg-success/80 text-white font-medium rounded-lg px-6 py-2.5 transition-colors duration-200"
               >
                 צרו שאלות

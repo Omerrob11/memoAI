@@ -2,15 +2,21 @@ import { supabase } from "@/servcies/supabase";
 import mammoth from "mammoth";
 import pdf from "pdf-parse/lib/pdf-parse";
 
+// rounte handler for extract-text
+// must return a response
+// DO: take supabase file, and process it, return only the text
+// FORMAT AVILABLE: docx, pdf
 export async function POST(req) {
   try {
+    // getting the document path from the request body
     const documentData = await req.json();
     const docPath = documentData.documentPath;
 
+    // api call can come from different places
     if (!docPath) {
       return Response.json(
         {
-          error: "no path has been given",
+          message: "no path has been given",
         },
         {
           status: 400,
@@ -25,7 +31,7 @@ export async function POST(req) {
       console.error("supabas download error: ", downloadDocument.error);
       return Response.json(
         {
-          error: "failed to download supabase doc",
+          message: "failed to download supabase doc",
         },
         {
           status: 500,
@@ -52,13 +58,10 @@ export async function POST(req) {
       extractedText = result.value;
     }
 
-    console.log("this is the data being uploaded");
-    console.log(extractedText);
-
     if (!extractedText) {
-      return NextResponse.json(
+      return Response.json(
         {
-          error: "failed to extract text from document",
+          message: "failed to extract text from document",
         },
         {
           status: 500,
@@ -66,13 +69,12 @@ export async function POST(req) {
       );
     }
     return Response.json({
-      success: true,
       text: extractedText,
     });
   } catch (error) {
     console.log("lol this is error baby");
     return Response.json(
-      { error: "failed to process document" },
+      { message: `failed to process document" + ${error.message}` },
       { status: 500 }
     );
   }
