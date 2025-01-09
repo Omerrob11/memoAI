@@ -21,6 +21,10 @@ So before you suggest a solution, you must wait until I share with you my thinki
 my thinking process should be how I was thinking on solving it.
 You can't share any solution before I share my thinking.
 
+by the above this is for mostly logic based questions.
+but for general approach, for example which tech to use, it's okay for you to propose it to me before understanding my approach, 
+because im not really know about the tech tools avilable
+
 Tell me that you got it and I will continue with the tasks that we need to do.
 
 
