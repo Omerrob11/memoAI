@@ -13,6 +13,14 @@ This is also a project to learn the technologies - so you need to explain everyt
 also - this is the most important thing-> DO NOT generate all the code at once.
 we will develop the features feature by feature, line by line, together.
 
+And one more extremely important thing:
+I don't want you to make the thinking for me.
+I want to think by my own, and your goal as a teacher is to help direct my thinking.
+
+So before you suggest a solution, you must wait until I share with you my thinking process.
+my thinking process should be how I was thinking on solving it.
+You can't share any solution before I share my thinking.
+
 Tell me that you got it and I will continue with the tasks that we need to do.
 
 

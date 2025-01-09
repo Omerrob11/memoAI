@@ -1,7 +1,17 @@
 import { supabase } from "../client";
 
+function generateSafeFileName(originalFileName) {
+  // unique identifier, we get it by this method
+  const uuid = crypto.randomUUID();
+
+  const extension = originalFileName.split(".").pop();
+
+  return `${uuid}.${extension}`;
+}
+
 export async function uploadDocument(file) {
   try {
+    const safeFileName = generateSafeFileName(file.name);
     const fileName = `${Date.now()}-${file.name}`;
     // object decustruting - unpackeging the items
     // when database return a response, we get an object with data / error
@@ -10,7 +20,7 @@ export async function uploadDocument(file) {
     // the object has the data object or error object, one of them is null
     const { data, error } = await supabase.storage
       .from("documents")
-      .upload(fileName, file);
+      .upload(safeFileName, file);
 
     //   we will always get data and error - one of them will be null and the other not
     // but only one has actualy value - the other one will be null
@@ -19,7 +29,12 @@ export async function uploadDocument(file) {
     // data from supabase uploads: full path where the file is stored, file size, content type, time stamp, etc...
     // is a data object, where we would have the data.path
     // we return it to the calling code
-    return data;
+    return {
+      ...data,
+      // giving the original and sfae file name, we will
+      originalName: file.name,
+      safeName: safeFileName,
+    };
   } catch (error) {
     // so we could use result.error
     // so the idea is to check if in the return code

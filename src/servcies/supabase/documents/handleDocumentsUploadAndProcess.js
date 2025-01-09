@@ -12,6 +12,8 @@ export async function handleDocumentUploadAndProcess(file) {
       throw new Error(`upload failed: ${uploadResult.error.message}`);
     }
 
+    console.log(uploadResult);
+
     // we get the data object from the upload
     // pass the file path to the process document
     // getting an object
