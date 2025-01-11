@@ -1,4 +1,4 @@
-import { generateQuestions } from "@/servcies/open_ai/generate_questions/helpers";
+import { generateQuestions } from "@/servcies/open_ai/generate_questions/helpers.js";
 
 // post and get functions are for route handlers
 // which this is what it is
