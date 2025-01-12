@@ -31,7 +31,9 @@ export function splitIntoChunks(text) {
   const chunks = [];
   let currentPosition = 0;
   const textLength = text.length;
+
   const charsPerChunk = CHUNKING_CONFIG.MAX_TOKENS_PER_CHUNK * 3;
+  const overlapSize = CHUNKING_CONFIG.OVERLAP_SIZE * 3; // Convert overlap tokens to chars
 
   while (currentPosition < textLength) {
     const chunkEnd = Math.min(currentPosition + charsPerChunk, textLength);
@@ -46,7 +48,9 @@ export function splitIntoChunks(text) {
       chunks.push(chunk);
     }
 
-    currentPosition = chunkEnd;
+    // have overlap size
+    // which is around 3000 characters, around 1000 tokens
+    currentPosition = chunkEnd - overlapSize;
   }
 
   return chunks;
