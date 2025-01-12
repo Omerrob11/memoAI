@@ -4,6 +4,7 @@ async function generateQuestions(extractedText) {
   const formatPrompt = "this is some dummy prompt";
 }
 
+// TODO: ask him to make you an outline of the text
 async function generateSummary(extractedText) {
   try {
     // main method to interact with gpt models
