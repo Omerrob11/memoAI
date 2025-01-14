@@ -1,5 +1,5 @@
 export const CHUNKING_CONFIG = {
-  MAX_TOKENS_PER_CHUNK: 12000, // Conservative limit for GPT-3.5
+  MAX_TOKENS_PER_CHUNK: 4000, // Conservative limit for GPT-3.5
   //   we repeat around 1000tokens worth of text from the end of the prveious chunk at the start of the next chunk to maintain context
   OVERLAP_SIZE: 1000, // Number of tokens to overlap
   MIN_CHUNK_SIZE: 1000, // Minimum chunk size to process
@@ -50,7 +50,14 @@ export function splitIntoChunks(text) {
 
     // have overlap size
     // which is around 3000 characters, around 1000 tokens
+    // this line cause memory allocation issue
+    // needs to fix it
     currentPosition = chunkEnd - overlapSize;
+    // Prevent infinite loop by ensuring we move forward
+
+    // currentPosition = chunkEnd - (chunks.length > 0 ? overlapSize : 0);
+
+    // Safety check to prevent potential infinite loop
   }
 
   return chunks;
@@ -71,3 +78,23 @@ Add user limits based on document size
 
 
 */
+
+// Test our chunking logic
+const sampleText = `
+Section 1: This is the beginning of our test. We're testing the chunking and overlap functionality.
+${".".repeat(8000)}
+Section 2: This is the middle section. This should demonstrate our overlap working.
+${".".repeat(8000)}
+Section 3: This is the final section. We should see how the chunks maintain context.`;
+
+// Test the chunking
+const chunks = splitIntoChunks(sampleText);
+
+// Log results
+console.log("Number of chunks:", chunks.length);
+chunks.forEach((chunk, index) => {
+  console.log(`\nChunk ${index + 1}:`);
+  console.log("Start:", chunk.slice(0, 50));
+  console.log("End:", chunk.slice(-50));
+  console.log("Tokens:", estimateTokens(chunk));
+});

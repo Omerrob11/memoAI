@@ -1,4 +1,6 @@
 import { generateSummary } from "@/servcies/open_ai/generate_questions/helpers";
+import { uploadDocumentSummary } from "@/servcies/supabase/documents/uploadResponse";
+
 export async function GET(req) {
   try {
     const sampleText = `
@@ -24,6 +26,13 @@ export async function GET(req) {
     const summary = await generateSummary(sampleText);
     console.log("Sample Text:", sampleText);
     console.log("\nGenerated Summary:", summary);
+
+    uploadDocumentSummary({
+      userId: "123e4567-e89b-12d3-a456-426614174000", // example UUID
+      fileName: "ss",
+      fileUrl: "noname",
+      summary: "",
+    });
 
     return Response.json({ success: true, summary });
   } catch (error) {
