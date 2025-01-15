@@ -67,6 +67,7 @@ export async function uploadDocumentSummary({
 //   }],
 export async function uploadQuestions({ documentId, questionsResponse }) {
   try {
+    console.log(questionsResponse, " thisis quesitons response ");
     // we map the array, and make it an array of objects which each object is a row of the able
     const questionsToInsert = questionsResponse.map((question) => ({
       document_id: documentId,

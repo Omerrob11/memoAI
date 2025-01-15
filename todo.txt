@@ -1,0 +1,1 @@
+[] make sure we don't get russain text - sometimes open ai return russain text!

@@ -46,9 +46,12 @@ export async function GET(req) {
       // ... rest of the validation
     });
 
-    uploadQuestions(1, result);
+    const questionsResult = await uploadQuestions({
+      documentId: "4528492b-becb-43bd-9f44-5b3d3c8ac54f",
+      questionsResponse: result,
+    });
 
-    return Response.json({ success: true, result });
+    return Response.json({ success: true, questionsResult });
     // const result2 = await generateQuestions(sampleText, 10);
   } catch (error) {
     console.error("Test failed:", error);

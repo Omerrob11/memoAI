@@ -27,14 +27,23 @@ export async function GET(req) {
     console.log("Sample Text:", sampleText);
     console.log("\nGenerated Summary:", summary);
 
-    uploadDocumentSummary({
-      userId: "123e4567-e89b-12d3-a456-426614174000", // example UUID
-      fileName: "ss",
-      fileUrl: "noname",
-      summary: "",
-    });
+    // const {
+    //   data: { user },
+    //   error,
+    // } = await supabase.auth.getUser();
+    // console.log("Auth status:", { user, error });
 
-    return Response.json({ success: true, summary });
+    // if (!user) {
+    //   return Response.json({ success: false, error: "No user found" });
+    // }
+
+    const result = await uploadDocumentSummary({
+      userId: "a04dce30-e847-47c8-832f-df95c200eefa",
+      fileName: "test.pdf",
+      fileUrl: "test-url",
+      summary: summary,
+    });
+    return Response.json({ success: true, summary, result });
   } catch (error) {
     console.error("Test failed:", error);
     return Response.json(
